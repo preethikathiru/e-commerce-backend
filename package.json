@@ -1,0 +1,24 @@
+{
+  "name": "e-commerce-backend",
+  "version": "1.0.0",
+  "description": "API server",
+  "main": "index.js",
+  "scripts": {
+    "run-mongo": "docker-compose -f docker-compose-mongo.yaml up",
+    "start": "node src/index.js",
+    "api-tests": "jest --coverage=true --runInBand ./api-tests"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.9.25",
+    "otp-generator": "^1.1.0",
+    "winston": "^3.3.3"
+  },
+  "devDependencies": {
+    "jest": "^26.1.0"
+  }
+}
