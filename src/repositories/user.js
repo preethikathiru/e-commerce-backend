@@ -35,19 +35,8 @@ class UserRepository {
     }
   }
 
-  async updateUser(oldUser) {
+  async updateUser(query, update, options){
     try {
-      const query = {email: oldUser.email},
-        update = { 
-          firstName: oldUser.firstName,
-          lastName: oldUser.lastName,
-          password: oldUser.password,
-          code: oldUser.code,
-          address: oldUser.address,
-          emailVerified: oldUser.emailVerified,
-          modifiedAt: new Date(),
-        },
-        options = { upsert: true, new: true, setDefaultsOnInsert: true };
       const resp = await userModel.findOneAndUpdate(query, update, options)
       return sendResponse(true, resp)
     } catch (error) {

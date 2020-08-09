@@ -10,11 +10,12 @@ class InitDb{
   */
   async dbConnection() {
     try {
-      await mongoose.connect('mongodb://root:rootpassword@127.0.0.1:27017/ecommerce?authSource=admin', {
+      await mongoose.connect('mongodb://myapp:myapp@localhost:27017/e-commerce', {
         keepAlive: true, 
         useNewUrlParser: true,
         useUnifiedTopology: true,
         useCreateIndex: true,
+        useFindAndModify: false,
       })
       mongoose.set("debug", false)
       mongoose.Promise = Promise

@@ -31,6 +31,13 @@ class UserResolver {
     }
     logger.info("New user created", createdUser.data)
     return sendResponse(200, createdUser.data)
+    
+    /**
+     * To return only email after signup
+     */
+    // return sendResponse(200, {
+    //   email: createdUser.data.email,
+    // })
   }
 
   async verifyUserEmail(inputData) {
@@ -43,11 +50,17 @@ class UserResolver {
       logger.error(`Invalid OTP for ${inputData.email}. Expected: ${oldUser.data.code} but Received: ${inputData.code}`)
       return sendResponse(400, `Invalid OTP for ${inputData.email}`)
     }
-
-    oldUser.code = ''
-    oldUser.emailVerified = true;
-    const updatedUser = await UserRepository.updateUser(oldUser)
-    if(!oldUser.status){
+    const query = {email: inputData.email},
+    update = { 
+      $set: {
+        code: '',
+        emailVerified: true,
+        modifiedAt: new Date()
+      }
+    },
+    options = { upsert: true, new : true };
+    const updatedUser = await UserRepository.updateUser(query, update, options)
+    if(!updatedUser.status){
       return sendResponse(400, updatedUser.data)
     }
     logger.info(`User ${inputData.email} is verified`, updatedUser.data)

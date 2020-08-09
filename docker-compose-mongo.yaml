@@ -1,9 +1,10 @@
 mongodb:
-  image: mongo:latest
+  image: bitnami/mongodb:latest
   container_name: MongoDB
   environment:
-    MONGO_INITDB_ROOT_USERNAME: root
-    MONGO_INITDB_ROOT_PASSWORD: rootpassword
+    - MONGODB_USERNAME=myapp
+    - MONGODB_PASSWORD=myapp
+    - MONGODB_DATABASE=e-commerce
   ports:
     - 27017:27017
   volumes:
